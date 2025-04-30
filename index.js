@@ -9,12 +9,16 @@ app.use(cors());
 app.use(express.json());
 
 const userRoutes = require('./src/routes/userRoutes');
-const surveyRoutes = require('./src/routes/surveyRoutes');
 const issueRoutes = require('./src/routes/issueRoutes');
+const categoryRoutes = require('./src/routes/categoryRoutes');
+const departmentRoutes = require('./src/routes/departmentRoutes');
+const feedbackRoutes = require('./src/routes/feedbackRoutes');
 
 app.use('/api/users', userRoutes);
-app.use('/api/surveys', surveyRoutes);
 app.use('/api/issues', issueRoutes);
+app.use('/api/categories', categoryRoutes);
+app.use('/api/departments', departmentRoutes);
+app.use('/api/feedbacks', feedbackRoutes);
 
 dbConnect();
 const PORT = process.env.PORT || 6000;

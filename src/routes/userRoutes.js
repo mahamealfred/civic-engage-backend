@@ -23,6 +23,25 @@ router.post('/register', async (req, res) => {
   }
 });
 
+router.post('/new-staff', async (req, res) => {
+  const { firstName,lastName, email,role } = req.body;
+  try {
+    const found= await User.findOne({ email });
+    if (found) return res.status(404).json({ error: 'This email is already in use' });
+    const user = new User({ 
+      firstName,
+      lastName,
+      email,
+      role,
+      password:"password"
+    });
+    await user.save();
+    res.status(201).json({ message: 'Account created successfully' });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
 // Login User
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
@@ -34,7 +53,13 @@ router.post('/login', async (req, res) => {
     if (!isMatch) return res.status(400).json({ error: 'Invalid credentials' });
 
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    res.status(200).json({ token });
+    res.status(200).json({ 
+      email:email,
+      firstName:user.firstName,
+      lastName:user.lastName,
+      id:user._id,
+      role:user.role,
+      token });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
