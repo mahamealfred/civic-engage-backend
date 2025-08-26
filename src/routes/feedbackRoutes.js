@@ -32,8 +32,8 @@ router.get('/issue/:issueId', async (req, res) => {
 
 
 // Create a new feedback
-router.post('/',authMiddleware, async (req, res) => {
-  const { issueId, content } = req.body;
+router.post('/new-feedback',authMiddleware, async (req, res) => {
+  const { issueId, content,status } = req.body;
   const userId = req.user._id
 
   try {
@@ -51,6 +51,7 @@ router.post('/',authMiddleware, async (req, res) => {
     const savedFeedback = await newFeedback.save();
      // Push feedback reference to the issue
      issue.feedbacks.push(savedFeedback._id);
+     issue.status=status
      await issue.save();
     res.status(201).json({
       status:201,

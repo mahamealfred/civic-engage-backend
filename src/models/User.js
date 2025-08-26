@@ -10,12 +10,12 @@ const UserSchema = new mongoose.Schema({
   password: { type: String, required: true },
   role: { type: String, enum: ['Admin', 'Citizen','Analyst'], default: 'Citizen' },
   createdAt: { type: Date, default: Date.now },
-  assignedIssues: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Issue', // Reference to Feedback
-    },
-  ], 
+  // assignedIssues: [
+  //   {
+  //     type: Schema.Types.ObjectId,
+  //     ref: 'Issue', // Reference to Feedback
+  //   },
+  // ], 
 });
 
 UserSchema.pre('save', async function(next) {

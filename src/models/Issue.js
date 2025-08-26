@@ -8,6 +8,7 @@ const IssueSchema = new Schema({
   creator: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   category: { type: Schema.Types.ObjectId, ref: 'Category' }, // New category field
   department: { type: Schema.Types.ObjectId, ref: 'Department' }, // New department field
+  assignedStaff: { type: Schema.Types.ObjectId, ref: 'User' }, // New department field
   feedbacks: [
     {
       type: Schema.Types.ObjectId,
